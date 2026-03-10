@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOKQ • Cosmic Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -20,7 +20,7 @@
         }
 
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Orbitron', sans-serif;
             background: radial-gradient(circle at 50% 20%, #1a0b3a 0%, #0b0c1e 70%);
             color: #fff;
             overflow-x: hidden;
@@ -28,7 +28,7 @@
             position: relative;
         }
 
-        /* === CANVAS GWIAZDY (zoptymalizowany) === */
+        /* === CANVAS GWIAZDY === */
         #star-canvas {
             position: fixed;
             top: 0;
@@ -55,7 +55,7 @@
             left: 0;
             width: 100%;
             padding: 20px 40px;
-            background: rgba(11, 12, 30, 0.75);
+            background: rgba(11, 12, 30, 0.7);
             backdrop-filter: blur(15px);
             z-index: 1000;
             border-bottom: 1px solid rgba(216, 0, 255, 0.3);
@@ -69,8 +69,7 @@
         nav a {
             color: #fff;
             text-decoration: none;
-            font-size: 1.15rem;
-            font-weight: 500;
+            font-size: 1.1rem;
             text-shadow: 0 0 10px var(--neon-purple);
             transition: all 0.3s;
         }
@@ -85,9 +84,8 @@
             padding: 160px 20px 100px;
         }
         header h1 {
-            font-size: 7.2rem;
-            font-weight: 700;
-            letter-spacing: -2px;
+            font-size: 7rem;
+            font-weight: 900;
             background: linear-gradient(90deg, #d800ff, #00ffff, #d800ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -96,10 +94,9 @@
             animation: glow-pulse 3s infinite alternate;
         }
         header p {
-            font-size: 1.65rem;
+            font-size: 1.6rem;
             margin-top: 15px;
             color: #ccc;
-            font-weight: 400;
             text-shadow: 0 0 15px #00ffff;
         }
 
@@ -113,8 +110,7 @@
             margin: 120px 0;
         }
         h2 {
-            font-size: 3.1rem;
-            font-weight: 600;
+            font-size: 3rem;
             text-align: center;
             margin-bottom: 50px;
             color: #d800ff;
@@ -154,9 +150,13 @@
                         0 0 80px rgba(0, 255, 255, 0.4);
         }
         .project-card h3 {
-            font-size: 1.65rem;
-            font-weight: 600;
+            font-size: 1.6rem;
             margin-bottom: 15px;
+            color: #fff;
+        }
+        .project-card p {
+            color: #ddd;
+            line-height: 1.7;
         }
 
         /* === SKILLS === */
@@ -194,7 +194,7 @@
             flex-wrap: wrap;
         }
         .social-links a {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             color: #d800ff;
             transition: all 0.4s;
             text-shadow: 0 0 15px #d800ff;
@@ -211,7 +211,7 @@
         }
         #kontakt a {
             color: #00ffff;
-            font-size: 1.35rem;
+            font-size: 1.3rem;
         }
         footer {
             text-align: center;
@@ -220,11 +220,18 @@
             font-size: 0.95rem;
             border-top: 1px solid rgba(216, 0, 255, 0.2);
         }
+
+        /* === DODATKOWE EFEKTY === */
+        .neon-text {
+            text-shadow: 0 0 10px #d800ff,
+                         0 0 20px #d800ff,
+                         0 0 40px #00ffff;
+        }
     </style>
 </head>
 <body>
 
-    <!-- CANVAS GWIAZDY (zoptymalizowany) -->
+    <!-- CANVAS Z GWIAZDAMI + SHOOTING STARS -->
     <canvas id="star-canvas"></canvas>
 
     <!-- NAVBAR -->
@@ -321,9 +328,9 @@
     </div>
 
     <script>
-        // === ZOPTYMALIZOWANY CANVAS (już się nie tnie!) ===
+        // === EPICKI CANVAS STARFIELD + SHOOTING STARS ===
         const canvas = document.getElementById('star-canvas');
-        const ctx = canvas.getContext('2d', { alpha: true });
+        const ctx = canvas.getContext('2d');
         
         let width = canvas.width = window.innerWidth;
         let height = canvas.height = window.innerHeight;
@@ -333,7 +340,7 @@
             height = canvas.height = window.innerHeight;
         });
 
-        // Gwiazdy – tylko 350 sztuk + bez shadowBlur (to był główny zabójca FPS!)
+        // Gwiazdy
         let stars = [];
         class Star {
             constructor() {
@@ -342,18 +349,21 @@
             reset() {
                 this.x = Math.random() * width;
                 this.y = Math.random() * height;
-                this.radius = Math.random() * 1.1 + 0.4;
-                this.alpha = Math.random() * 0.7 + 0.4;
-                this.twinkleSpeed = Math.random() * 0.035 + 0.015;
+                this.radius = Math.random() * 1.8 + 0.4;
+                this.alpha = Math.random() * 0.8 + 0.3;
+                this.twinkleSpeed = Math.random() * 0.03 + 0.015;
+                this.color = Math.random() > 0.85 ? '#d800ff' : '#ffffff';
             }
             update() {
                 this.alpha += this.twinkleSpeed;
-                if (this.alpha >= 0.95 || this.alpha <= 0.35) this.twinkleSpeed *= -1;
+                if (this.alpha >= 1 || this.alpha <= 0.2) this.twinkleSpeed *= -1;
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = '#ffffff';
+                ctx.fillStyle = this.color;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = this.color;
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
                 ctx.fill();
@@ -361,29 +371,29 @@
             }
         }
 
-        // Shooting star (tylko jedna na raz + glow)
+        // Shooting stars
         let shootingStar = null;
         class ShootingStar {
             constructor() {
-                this.x = Math.random() * width * 0.7;
-                this.y = Math.random() * height * 0.35;
-                this.length = Math.random() * 140 + 90;
-                this.speed = Math.random() * 22 + 14;
-                this.angle = Math.PI / 180 * (32 + Math.random() * 28);
+                this.x = Math.random() * width * 0.6;
+                this.y = Math.random() * height * 0.3;
+                this.length = Math.random() * 120 + 80;
+                this.speed = Math.random() * 18 + 12;
+                this.angle = Math.PI / 180 * (35 + Math.random() * 25);
                 this.alpha = 1;
-                this.thickness = Math.random() * 2.8 + 1.6;
+                this.thickness = Math.random() * 2.5 + 1.5;
             }
             update() {
                 this.x -= Math.cos(this.angle) * this.speed;
                 this.y -= Math.sin(this.angle) * this.speed;
-                this.alpha -= 0.022;
+                this.alpha -= 0.018;
             }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.alpha;
-                ctx.strokeStyle = '#a0f8ff';
+                ctx.strokeStyle = '#a0f0ff';
                 ctx.lineWidth = this.thickness;
-                ctx.shadowBlur = 35;
+                ctx.shadowBlur = 30;
                 ctx.shadowColor = '#00ffff';
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y);
@@ -396,21 +406,23 @@
             }
         }
 
+        // Inicjalizacja gwiazd
         function initStars() {
             stars = [];
-            for (let i = 0; i < 350; i++) {   // <<< ZMNIEJSZONE Z 950 → 350
+            for (let i = 0; i < 950; i++) {
                 stars.push(new Star());
             }
         }
 
+        // Główna pętla animacji
         function animate() {
             ctx.clearRect(0, 0, width, height);
 
-            // Gwiazdy (super lekkie)
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].update();
-                stars[i].draw();
-            }
+            // Rysuj gwiazdy
+            stars.forEach(star => {
+                star.update();
+                star.draw();
+            });
 
             // Shooting star
             if (shootingStar) {
@@ -419,8 +431,8 @@
                 if (shootingStar.alpha <= 0) shootingStar = null;
             }
 
-            // Rzadsze strzelające gwiazdy (żeby nie obciążać)
-            if (!shootingStar && Math.random() < 0.014) {
+            // Losowe pojawianie się shooting star (co ~1-4 sekundy)
+            if (!shootingStar && Math.random() < 0.028) {
                 shootingStar = new ShootingStar();
             }
 
@@ -431,12 +443,13 @@
         initStars();
         animate();
 
-        // Klik = dodatkowa strzelająca gwiazda
+        // Kliknięcie = dodatkowa strzelająca gwiazda (efekt wow)
         document.addEventListener('click', (e) => {
             if (!shootingStar) {
                 shootingStar = new ShootingStar();
                 shootingStar.x = e.clientX;
                 shootingStar.y = e.clientY;
+                shootingStar.angle = Math.PI / 180 * (40 + Math.random() * 30);
             }
         });
     </script>
