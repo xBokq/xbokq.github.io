@@ -3,211 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPAZMA VIBE | @TwojNick</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500&display=swap" rel="stylesheet">
+    <title>twoja_nazwa.lol</title>
     <style>
-        :root {
-            --dark: #020205;
-            --purple-glow: #7a2ff7;
-            --deep-purple: #2d004d;
-            --text-color: #e0e0e0;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@500;600&display=swap');
 
-        body, html {
+        body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--dark);
-            color: var(--text-color);
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
+            background: radial-gradient(circle at center, #2a1b4a 0%, #0f0a1f 60%, #05050f 100%);
+            color: white;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             overflow: hidden;
+            position: relative;
         }
 
-        /* Tło z efektem mgławicy */
-        .bg-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 30%, rgba(122, 47, 247, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 80% 70%, rgba(45, 0, 77, 0.3) 0%, transparent 40%);
-            z-index: -1;
+        /* Kosmiczne tło + mgławica */
+        body::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat;
+            opacity: 0.35;
+            z-index: -2;
+            animation: nebula 140s linear infinite;
+        }
+
+        @keyframes nebula {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
         }
 
         /* Animowane gwiazdy */
-        .stars-container {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
             background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.4;
             z-index: -1;
-            animation: starsMove 200s linear infinite;
+            opacity: 0.6;
+            animation: moveStars 160s linear infinite;
         }
 
-        @keyframes starsMove {
+        @keyframes moveStars {
             from { background-position: 0 0; }
-            to { background-position: 5000px 5000px; }
+            to { background-position: 1200px 1200px; }
         }
 
-        /* Główny kontener */
-        .profile-card {
-            position: relative;
-            background: rgba(10, 10, 15, 0.7);
+        /* Główny kontener - fioletowy glassmorphism */
+        .container {
+            background: rgba(40, 20, 80, 0.25);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(122, 47, 247, 0.3);
-            border-radius: 30px;
-            padding: 50px;
-            width: 380px;
+            border: 1px solid rgba(180, 100, 255, 0.4);
+            padding: 45px 35px;
+            border-radius: 24px;
             text-align: center;
-            box-shadow: 0 0 80px rgba(0, 0, 0, 0.5), 0 0 30px rgba(122, 47, 247, 0.1);
-            animation: float 6s ease-in-out infinite;
+            width: 360px;
+            box-shadow: 
+                0 0 40px rgba(180, 100, 255, 0.5),
+                0 8px 32px rgba(0, 0, 0, 0.7);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .avatar {
-            width: 120px;
-            height: 120px;
+        .profile-img {
+            width: 115px;
+            height: 115px;
             border-radius: 50%;
-            border: 2px solid var(--purple-glow);
-            padding: 5px;
-            filter: drop-shadow(0 0 15px var(--purple-glow));
+            border: 4px solid #b464ff;
             margin-bottom: 20px;
+            box-shadow: 0 0 35px #b464ff,
+                        0 0 60px rgba(0, 245, 255, 0.4);
+            transition: all 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.12) rotate(8deg);
+            box-shadow: 0 0 50px #b464ff,
+                        0 0 80px rgba(0, 245, 255, 0.6);
         }
 
         h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 22px;
-            letter-spacing: 4px;
-            margin: 10px 0;
-            text-transform: uppercase;
-            background: linear-gradient(to right, #fff, var(--purple-glow));
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            margin: 10px 0 8px;
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #ffffff, #c084fc, #67e8f9);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .lyrics-status {
-            font-size: 11px;
-            color: #888;
-            margin-bottom: 30px;
-            letter-spacing: 1px;
-            font-style: italic;
+        p {
+            color: #d1c4ff;
+            font-size: 15px;
+            margin-bottom: 35px;
+            line-height: 1.5;
         }
 
-        /* Linki w stylu mrocznego kosmosu */
-        .links-wrap {
+        .links {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 14px;
         }
 
-        .btn {
+        .link {
             text-decoration: none;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(122, 47, 247, 0.2);
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
             padding: 15px;
-            border-radius: 15px;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: 0.4s;
+            border-radius: 14px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            border: 1px solid rgba(180, 100, 255, 0.3);
         }
 
-        .btn:hover {
-            background: rgba(122, 47, 247, 0.15);
-            border-color: var(--purple-glow);
-            box-shadow: 0 0 20px rgba(122, 47, 247, 0.4);
-            transform: scale(1.05);
+        .link:hover {
+            background: rgba(180, 100, 255, 0.25);
+            border-color: #b464ff;
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(180, 100, 255, 0.6);
         }
 
-        /* Muzyka - Spazma Style */
-        .audio-player {
-            margin-top: 40px;
-            cursor: pointer;
+        /* Kontrolka muzyki */
+        .music-control {
+            margin-top: 35px;
+            padding: 12px 28px;
+            background: rgba(30, 15, 70, 0.6);
+            border: 1px solid rgba(180, 100, 255, 0.5);
+            border-radius: 9999px;
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            color: var(--purple-glow);
-            font-weight: bold;
-            font-size: 14px;
-            text-transform: uppercase;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .visualizer {
-            display: flex;
-            gap: 3px;
-            height: 15px;
-            align-items: flex-end;
+        .music-control:hover {
+            background: rgba(180, 100, 255, 0.3);
         }
-
-        .bar {
-            width: 3px;
-            background: var(--purple-glow);
-            animation: bounce 1s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { height: 5px; }
-            50% { height: 15px; }
-        }
-
     </style>
 </head>
 <body>
 
-<div class="bg-overlay"></div>
-<div class="stars-container"></div>
+    <div class="stars"></div>
 
-<div class="profile-card">
-    <img src="https://via.placeholder.com/150/000000/7a2ff7?text=USER" alt="Avatar" class="avatar">
-    
-    <h1>TWOJA NAZWA</h1>
-    <div class="lyrics-status">"Mam w piździe siano nie jest pierwsze na liście..."</div>
+    <div class="container">
+        <!-- Zmień na swoje zdjęcie -->
+        <img src="https://via.placeholder.com/115" alt="Avatar" class="profile-img">
 
-    <div class="links-wrap">
-        <a href="TWÓJ_LINK" target="_blank" class="btn">DISCORD SERVER</a>
-        <a href="TWÓJ_LINK" target="_blank" class="btn">YOUTUBE CHANNEL</a>
-        <a href="TWÓJ_LINK" target="_blank" class="btn">INSTAGRAM</a>
-    </div>
+        <h1>Twój Nick</h1>
+        <p>Eksplorator cyfrowego kosmosu 🌌<br>Tu zawsze leci zajebiscie</p>
 
-    <div class="audio-player" onclick="toggleAudio()">
-        <div class="visualizer" id="viz">
-            <div class="bar" style="animation-delay: 0.1s"></div>
-            <div class="bar" style="animation-delay: 0.3s"></div>
-            <div class="bar" style="animation-delay: 0.2s"></div>
+        <div class="links">
+            <a href="https://discord.gg/TWOJ_LINK" target="_blank" class="link">DISCORD</a>
+            <a href="https://youtube.com/@TWÓJ_KANAŁ" target="_blank" class="link">YOUTUBE</a>
+            <a href="https://instagram.com/TWÓJ_PROFIL" target="_blank" class="link">INSTAGRAM</a>
+            <a href="https://tiktok.com/@TWÓJ_PROFIL" target="_blank" class="link">TIKTOK</a>
+            <!-- dodaj kolejne linki jeśli chcesz -->
         </div>
-        <span id="play-text">PLAY SPAZMA</span>
+
+        <div onclick="toggleMusic()" class="music-control">
+            🎵 <span id="musicText">spazma - ZAJE*ISCIE leci w tle</span>
+        </div>
     </div>
-</div>
 
-<audio id="track" loop>
-    <source src="LINK_DO_PLIKU_MP3" type="audio/mpeg">
-</audio>
+    <!-- Muzyka: spazma - ZAJE*ISCIE -->
+    <iframe id="youtubePlayer" width="1" height="1" 
+        src="https://www.youtube.com/embed/1grl9orkU88?autoplay=1&loop=1&playlist=1grl9orkU88&mute=1" 
+        frameborder="0" allow="autoplay" style="display:none;"></iframe>
 
-<script>
-    const song = document.getElementById('track');
-    const playText = document.getElementById('play-text');
-    const viz = document.getElementById('viz');
+    <script>
+        let isPlaying = true;
+        const player = document.getElementById('youtubePlayer');
+        const musicText = document.getElementById('musicText');
 
-    function toggleAudio() {
-        if (song.paused) {
-            song.play();
-            playText.innerText = "NOW PLAYING";
-            viz.style.display = "flex";
-        } else {
-            song.pause();
-            playText.innerText = "PAUSED";
-            viz.style.display = "none";
+        function toggleMusic() {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                player.src = "https://www.youtube.com/watch?v=KERqIbo-k_A&list=RDKERqIbo-k_A&start_radio=1";
+                musicText.textContent = "spazma - ZAJE*ISCIE leci w tle";
+            } else {
+                player.src = "https://www.youtube.com/watch?v=KERqIbo-k_A&list=RDKERqIbo-k_A&start_radio=1";
+                musicText.textContent = "Muzyka zatrzymana";
+            }
         }
-    }
-</script>
 
+        // Autostart
+        window.onload = () => {
+            setTimeout(() => {
+                player.src = "https://www.youtube.com/watch?v=KERqIbo-k_A&list=RDKERqIbo-k_A&start_radio=1";
+            }, 1200);
+        };
+    </script>
 </body>
 </html>
